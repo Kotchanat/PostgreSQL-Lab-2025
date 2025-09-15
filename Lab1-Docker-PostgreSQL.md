@@ -79,9 +79,8 @@ docker run hello-world
 ```
 
 **บันทึกผลการทดลอง - การเตรียมความพร้อม:**
-```
-ใส่ Screenshot ของผลการรัน docker --version และ docker run hello-world ที่นี่
-```
+
+![alt text](image.png)
 
 ## ขั้นตอนการทดลอง
 
@@ -103,9 +102,7 @@ docker inspect postgres
 
 
 **บันทึกผลการทดลอง - Step 1:**
-```
-ใส่ Screenshot ของผลการรัน docker images ที่นี่
-```
+![alt text](image-1.png)
 
 ### Step 2: Create Docker Volume for Data Persistence
 
@@ -126,9 +123,7 @@ docker volume create postgres-config
 **คำอธิบาย**: Docker Volume จะทำให้ข้อมูลคงอยู่แม้ Container จะถูกลบ
 
 **บันทึกผลการทดลอง - Step 2:**
-```
-ใส่ Screenshot ของผลการรัน docker volume ls และ docker volume inspect postgres-data ที่นี่
-```
+![alt text](image-2.png)
 
 ### Step 3: Create PostgreSQL Container with Volume
 
@@ -160,9 +155,7 @@ docker run --name postgres-lab \
 - `-c shared_buffers=256MB`: กำหนด shared buffers
 
 **บันทึกผลการทดลอง - Step 3:**
-```
-ใส่ Screenshot ของผลการรัน docker run ที่นี่
-```
+![alt text](image-3.png)
 
 ### Step 4: Verify Container Status and Resource Usage
 
@@ -181,12 +174,9 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผลการทดลอง - Step 4:**
-```
-ใส่ Screenshot ของ:
-1. ผลการรัน docker ps
-2. ส่วนหนึ่งของ docker logs postgres-lab
-3. ผลการรัน docker stats
-```
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
 
 ### Step 5: Connect to PostgreSQL และตรวจสอบ Configuration
 
@@ -226,12 +216,9 @@ WHERE name IN ('shared_buffers', 'work_mem', 'maintenance_work_mem', 'effective_
 ```
 
 **บันทึกผลการทดลอง - Step 5:**
-```
-ใส่ Screenshot ของ:
-1. ผลการรัน SELECT version();
-2. ผลการรัน SHOW shared_buffers; SHOW work_mem; SHOW maintenance_work_mem;SHOW effective_cache_size;
-3. ผลการรัน \l และ \du
-```
+![alt text](image-7.png)
+![alt text](image-8.png)
+![alt text](image-10.png)
 
 ### Step 6: Database Management Operations
 
@@ -270,12 +257,9 @@ WHERE datname = 'lab_db';
 ```
 
 **บันทึกผลการทดลอง - Step 6:**
-```
-ใส่ Screenshot ของ:
-1. ผลการสร้าง lab_db
-2. ผลการรัน \l+ แสดงฐานข้อมูลทั้งหมด
-3. ผลการ query ข้อมูลฐานข้อมูล
-```
+![alt text](image-11.png)
+![alt text](image-12.png)
+![alt text](image-13.png)
 
 ### Step 7: User และ Role Management
 
@@ -328,12 +312,9 @@ WHERE r.rolname NOT LIKE 'pg_%';
 ```
 
 **บันทึกผลการทดลอง - Step 7:**
-```
-ใส่ Screenshot ของ:
-1. ผลการสร้าง users ทั้งหมด
-2. ผลการรัน \du+
-3. ผลการ query pg_roles
-```
+![alt text](image-14.png)
+![alt text](image-15.png)
+![alt text](image-16.png)
 
 ### Step 8: การจัดการสิทธิ์ User
 
@@ -390,18 +371,23 @@ GRANT SELECT ON postgres_test_table TO lab_user;
 ```
 
 **บันทึกผลการทดลอง - Step 8:**
-```
-ใส่ Screenshot ของ:
-1. ผลการ ALTER USER commands
-2. ผลการรัน \dp test_permissions
-3. ผลการ GRANT commands
-```
+![alt text](image-17.png)
+![alt text](image-18.png)
+![alt text](image-19.png)
 **คำถาม
- ```
+
 Access Privileges   postgres=arwdDxtm/postgres มีความหมายอย่างไร
+postgres=arwdDxtm/postgres หมายถึง สิทธิ์การเข้าถึง (Access Privileges) ของ user/role postgres บน object (เช่น table) โดยมีสิทธิ์ดังนี้:
+a = INSERT (เพิ่มข้อมูล)
+r = SELECT (อ่านข้อมูล)
+w = UPDATE (แก้ไขข้อมูล)
+d = DELETE (ลบข้อมูล)
+D = TRUNCATE (ลบข้อมูลทั้งตาราง)
+x = REFERENCES (ใช้ foreign key อ้างอิง)
+t = TRIGGER (สร้าง trigger)
+m = UPDATE (permissions) หรือ RULE
 
 
- ```
 ### Step 9: Schema Management และ Namespace
 
 ```sql
@@ -501,13 +487,10 @@ INSERT INTO hr.employee_orders (employee_id, customer_id, order_date, commission
 ```
 
 **บันทึกผลการทดลอง - Step 9:**
-```
-ใส่ Screenshot ของ:
-1. ผลการสร้าง schemas (\dn+)
-2. ผลการสร้างตารางในแต่ละ schema
-3. ผลการใส่ข้อมูลและ query ข้อมูล
-4. ข้อมูลในตาราง employee_orders ที่จะใช้สำหรับ JOIN ข้าม schema
-```
+![alt text](image-20.png)
+![alt text](image-21.png)
+![alt text](image-22.png)
+![alt text](image-23.png)
 
 ### Step 10: ทดสอบการเข้าถึง Schema และ Search Path
 
@@ -568,13 +551,12 @@ SET search_path TO public;
 ```
 
 **บันทึกผลการทดลอง - Step 10:**
-```
-ใส่ Screenshot ของ:
-1. ผลการแสดง search_path
-2. ผลการ query ภายใน schema เดียวกัน (sales.customers + sales.orders)
-3. ผลการ JOIN ข้าม schemas (sales + hr + inventory)
-4. ข้อมูลที่แสดงจาก complex join ข้าม 3 schemas
-```
+![alt text](image-25.png)
+![alt text](image-27.png)
+![alt text](image-28.png)
+![alt text](image-29.png)
+
+
 
 ### Step 11: ทดสอบการเชื่อมต่อจาก User อื่น
 
@@ -600,12 +582,9 @@ INSERT INTO test_permissions (name) VALUES ('Test by lab_user'); -- ทำไม
 ```
 
 **บันทึกผลการทดลอง - Step 11:**
-```
-ใส่ Screenshot ของ:
-1. ผลการเชื่อมต่อด้วย lab_user
-2. ผลการทดสอบสิทธิ์ต่างๆ
-3. ข้อความ error (ถ้ามี) เมื่อไม่มีสิทธิ์
-```
+![alt text](image-30.png)
+![alt text](image-31.png)
+![alt text](image-32.png)
 
 ### Step 12: การจัดการ Volume และ Data Persistence
 
@@ -635,12 +614,9 @@ docker run --name postgres-backup-test \
 ```
 
 **บันทึกผลการทดลอง - Step 12:**
-```
-ใส่ Screenshot ของ:
-1. ผลการหยุดและเริ่ม Container
-2. ยืนยันว่าข้อมูลยังอยู่หลังจาก restart
-3. ผลการสร้าง container พร้อม bind mount
-```
+![alt text](image-33.png)
+![alt text](image-34.png)
+![alt text](image-35.png)
 
 ## การตรวจสอบผลงานและ Performance
 
@@ -660,9 +636,7 @@ docker volume inspect postgres-data
 ```
 
 **บันทึกผล Checkpoint 1:**
-```
-ใส่ Screenshot ของ resource usage และ volume information ที่นี่
-```
+![alt text](image-36.png)
 
 ### Checkpoint 2: Database Performance และ Configuration
 ```sql
@@ -708,12 +682,9 @@ WHERE state = 'active';
 ```
 
 **บันทึกผล Checkpoint 2:**
-```
-ใส่ Screenshot ของ:
-1. Database statistics
-2. Memory configuration
-3. Active connections
-```
+![alt text](image-37.png)
+![alt text](image-38.png)
+![alt text](image-39.png)
 
 ## การแก้ไขปัญหาเบื้องต้น
 
@@ -773,12 +744,9 @@ docker volume create postgres-data
 ```
 
 **ผลการทำแบบฝึกหัด 1:**
-```
-ใส่ Screenshot ของ:
-1. คำสั่งที่ใช้สร้าง container
-2. docker ps แสดง container ใหม่
-3. docker stats แสดงการใช้ resources
-```
+![alt text](image-40.png)
+![alt text](image-41.png)
+![alt text](image-42.png)
 
 ### แบบฝึกหัด 2: User Management และ Security
 **คำสั่ง**: สร้างระบบผู้ใช้ที่สมบูรณ์:
@@ -793,18 +761,39 @@ docker volume create postgres-data
    - `analyst_user` (รหัสผ่าน: `analyst123`) - เป็นสมาชิกของ data_analysts
    - `admin_user` (รหัสผ่าน: `admin123`) - เป็นสมาชิกของ db_admins
 
-```sql
 -- พื้นที่สำหรับคำตอบ - เขียน SQL commands ที่ใช้
 
-```
+-- Step 1: สร้าง Role Groups
+CREATE ROLE app_developers;
+CREATE ROLE data_analysts;
+CREATE ROLE db_admins;
+
+-- Step 2: สร้าง Users และกำหนด password พร้อม assign group
+CREATE USER dev_user WITH PASSWORD 'dev123';
+GRANT app_developers TO dev_user;
+
+CREATE USER analyst_user WITH PASSWORD 'analyst123';
+GRANT data_analysts TO analyst_user;
+
+CREATE USER admin_user WITH PASSWORD 'admin123';
+GRANT db_admins TO admin_user;
+
+-- Step 3: ตรวจสอบรายชื่อ users และ roles
+\du
+จากนั้น
+กดรันทั้งหมดใน psql shell (postgres=#)
+ใช้ \du ดูว่ามี users/roles ครบหรือยัง
+ออกด้วย \q
+แล้วลอง login ด้วยคำสั่ง
+docker exec -it multi-postgres psql -U dev_user -d postgres
+docker exec -it multi-postgres psql -U analyst_user -d postgres
+docker exec -it multi-postgres psql -U admin_user -d postgres
+
 
 **ผลการทำแบบฝึกหัด 2:**
-```
-ใส่ Screenshot ของ:
-1. การสร้าง roles และ users
-2. ผลการรัน \du แสดงผู้ใช้ทั้งหมด
-3. ผลการทดสอบเชื่อมต่อด้วย user ต่างๆ
-```
+![alt text](image-44.png)
+![alt text](image-45.png)
+![alt text](image-46.png)
 
 ### แบบฝึกหัด 3: Schema Design และ Complex Queries
 **คำสั่ง**: สร้างระบบฐานข้อมูลร้านค้าออนไลน์:
@@ -947,20 +936,180 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
    - หายอดขายรวมของแต่ละหมวดหมู่
    - หาลูกค้าที่ซื้อสินค้ามากที่สุด
 
-```sql
--- พื้นที่สำหรับคำตอบ - เขียน SQL commands ทั้งหมด
+-- =============================
+-- STEP 1: สร้าง Schemas
+-- =============================
+CREATE SCHEMA ecommerce;
+CREATE SCHEMA analytics;
+CREATE SCHEMA audit;
 
-```
+-- =============================
+-- STEP 2: สร้าง Tables ใน ecommerce
+-- =============================
+
+-- ตารางหมวดหมู่สินค้า
+CREATE TABLE ecommerce.categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+-- ตารางสินค้า
+CREATE TABLE ecommerce.products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    category_id INT REFERENCES ecommerce.categories(category_id),
+    stock INT NOT NULL
+);
+
+-- ตารางลูกค้า
+CREATE TABLE ecommerce.customers (
+    customer_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    address TEXT
+);
+
+-- ตารางคำสั่งซื้อ
+CREATE TABLE ecommerce.orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES ecommerce.customers(customer_id),
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50),
+    total DECIMAL(10,2)
+);
+
+-- ตารางรายการสินค้าในคำสั่งซื้อ
+CREATE TABLE ecommerce.order_items (
+    order_item_id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES ecommerce.orders(order_id),
+    product_id INT REFERENCES ecommerce.products(product_id),
+    quantity INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL
+);
+
+-- =============================
+-- STEP 3: Insert ข้อมูลตัวอย่าง
+-- =============================
+
+-- categories
+INSERT INTO ecommerce.categories (name, description) VALUES
+('Electronics', 'Electronic devices and gadgets'),
+('Clothing', 'Apparel and fashion items'),
+('Books', 'Books and educational materials'),
+('Home & Garden', 'Home improvement and garden supplies'),
+('Sports', 'Sports equipment and accessories');
+
+-- products
+INSERT INTO ecommerce.products (name, description, price, category_id, stock) VALUES
+('iPhone 15', 'Latest Apple smartphone', 999.99, 1, 50),
+('Samsung Galaxy S24', 'Android flagship phone', 899.99, 1, 45),
+('MacBook Air', 'Apple laptop computer', 1299.99, 1, 30),
+('Wireless Headphones', 'Bluetooth noise-canceling headphones', 199.99, 1, 100),
+('Gaming Mouse', 'High-precision gaming mouse', 79.99, 1, 75),
+
+('T-Shirt', 'Cotton casual t-shirt', 19.99, 2, 200),
+('Jeans', 'Denim blue jeans', 59.99, 2, 150),
+('Sneakers', 'Comfortable running sneakers', 129.99, 2, 80),
+('Jacket', 'Winter waterproof jacket', 89.99, 2, 60),
+('Hat', 'Baseball cap', 24.99, 2, 120),
+
+('Programming Book', 'Learn Python programming', 39.99, 3, 40),
+('Novel', 'Best-selling fiction novel', 14.99, 3, 90),
+('Textbook', 'University mathematics textbook', 79.99, 3, 25),
+
+('Garden Tools Set', 'Complete gardening tool kit', 49.99, 4, 35),
+('Plant Pot', 'Ceramic decorative pot', 15.99, 4, 80),
+
+('Tennis Racket', 'Professional tennis racket', 149.99, 5, 20),
+('Football', 'Official size football', 29.99, 5, 55);
+
+-- customers
+INSERT INTO ecommerce.customers (name, email, phone, address) VALUES
+('John Smith', 'john.smith@email.com', '555-0101', '123 Main St, City A'),
+('Sarah Johnson', 'sarah.j@email.com', '555-0102', '456 Oak Ave, City B'),
+('Mike Brown', 'mike.brown@email.com', '555-0103', '789 Pine Rd, City C'),
+('Emily Davis', 'emily.d@email.com', '555-0104', '321 Elm St, City A'),
+('David Wilson', 'david.w@email.com', '555-0105', '654 Maple Dr, City B'),
+('Lisa Anderson', 'lisa.a@email.com', '555-0106', '987 Cedar Ln, City C'),
+('Tom Miller', 'tom.miller@email.com', '555-0107', '147 Birch St, City A'),
+('Amy Taylor', 'amy.t@email.com', '555-0108', '258 Ash Ave, City B');
+
+-- orders
+INSERT INTO ecommerce.orders (customer_id, order_date, status, total) VALUES
+(1, '2024-01-15 10:30:00', 'completed', 1199.98),
+(2, '2024-01-16 14:20:00', 'completed', 219.98),
+(3, '2024-01-17 09:15:00', 'completed', 159.97),
+(1, '2024-01-18 11:45:00', 'completed', 79.99),
+(4, '2024-01-19 16:30:00', 'completed', 89.98),
+(5, '2024-01-20 13:25:00', 'completed', 1329.98),
+(2, '2024-01-21 15:10:00', 'completed', 149.99),
+(6, '2024-01-22 12:40:00', 'completed', 294.97),
+(3, '2024-01-23 08:50:00', 'completed', 199.99),
+(7, '2024-01-24 17:20:00', 'completed', 169.98),
+(1, '2024-01-25 10:15:00', 'completed', 39.99),
+(8, '2024-01-26 14:35:00', 'completed', 599.97),
+(4, '2024-01-27 11:20:00', 'processing', 179.98),
+(5, '2024-01-28 09:45:00', 'shipped', 44.98),
+(6, '2024-01-29 16:55:00', 'completed', 129.99);
+
+-- order_items
+INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
+(1, 1, 1, 999.99), (1, 4, 1, 199.99),
+(2, 4, 1, 199.99), (2, 6, 1, 19.99),
+(3, 7, 1, 59.99), (3, 5, 1, 79.99), (3, 6, 1, 19.99),
+(4, 5, 1, 79.99),
+(5, 9, 1, 89.99),
+(6, 3, 1, 1299.99), (6, 12, 2, 14.99),
+(7, 16, 1, 149.99),
+(8, 8, 2, 129.99), (8, 10, 1, 24.99), (8, 11, 1, 39.99),
+(9, 4, 1, 199.99),
+(10, 2, 1, 899.99), (10, 6, 3, 19.99), (10, 14, 1, 49.99),
+(11, 11, 1, 39.99),
+(12, 1, 1, 999.99),
+(13, 17, 6, 29.99),
+(14, 15, 2, 15.99), (14, 12, 1, 14.99),
+(15, 8, 1, 129.99);
+
+-- =============================
+-- STEP 4: Queries
+-- =============================
+
+-- 1. Top 5 ขายดีที่สุด
+SELECT p.name, SUM(oi.quantity) AS total_sold
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+GROUP BY p.name
+ORDER BY total_sold DESC
+LIMIT 5;
+
+-- 2. ยอดขายรวมตามหมวดหมู่
+SELECT c.name AS category, SUM(oi.quantity * oi.price) AS total_sales
+FROM ecommerce.order_items oi
+JOIN ecommerce.products p ON oi.product_id = p.product_id
+JOIN ecommerce.categories c ON p.category_id = c.category_id
+GROUP BY c.name
+ORDER BY total_sales DESC;
+
+-- 3. ลูกค้าที่ซื้อเยอะที่สุด
+SELECT cu.name, COUNT(o.order_id) AS total_orders, SUM(o.total) AS total_spent
+FROM ecommerce.orders o
+JOIN ecommerce.customers cu ON o.customer_id = cu.customer_id
+GROUP BY cu.name
+ORDER BY total_spent DESC
+LIMIT 1;
 
 **ผลการทำแบบฝึกหัด 3:**
-```
-ใส่ Screenshot ของ:
-1. โครงสร้าง schemas และ tables (\dn+, \dt ecommerce.*)
-2. ข้อมูลตัวอย่างในตารางต่างๆ
-3. ผลการรัน queries ที่สร้าง
-4. การวิเคราะห์ข้อมูลที่ได้
-```
+![alt text](image-47.png)
+![alt text](image-48.png)
+![alt text](image-49.png)
 
+สินค้าขายดีสุด 5 อันดับแรกคือ iPhone 15, T-Shirt, Wireless Headphones…
+หมวด Electronics มียอดขายรวมสูงสุด เนื่องจากสินค้าราคาแพงและขายได้ปริมาณมาก
+ลูกค้าที่ซื้อเยอะที่สุดคือ John Smith มียอดใช้จ่ายรวมมากที่สุด
 
 ## การทดสอบความเข้าใจ
 
@@ -973,10 +1122,33 @@ INSERT INTO ecommerce.order_items (order_id, product_id, quantity, price) VALUES
 4. อธิบายประโยชน์ของการใช้ Docker สำหรับ Database Development
 
 **คำตอบ Quiz 1:**
-```
-เขียนคำตอบที่นี่
-```
+1. ความแตกต่างระหว่าง Named Volume และ Bind Mount Named Volume:
+จัดการโดย Docker เอง (Docker จะสร้างและเก็บไว้ใน path ภายใน /var/lib/docker/volumes/) 
+ใช้ง่าย เหมาะสำหรับ production
+ไม่ต้องสนใจ path บนเครื่อง host
 
+Bind Mount:
+ผูกตรงกับ path ที่เรากำหนดบนเครื่อง host
+ควบคุมไฟล์ได้โดยตรง (เช่นแก้ไฟล์ config)
+เหมาะสำหรับ dev/test ที่ต้องแก้ไขไฟล์บ่อย
+
+2. เหตุใด shared_buffers ควรตั้งเป็น 25% ของ RAM
+shared_buffers คือ memory ที่ PostgreSQL ใช้เก็บ data block ที่ถูกอ่าน/เขียนบ่อย
+ถ้าใหญ่เกินไป = ระบบปฏิบัติการมี RAM เหลือน้อย = ช้าลง
+ถ้าเล็กเกินไป = ต้องอ่าน/เขียนจาก disk บ่อย = ช้าลง
+
+3. การใช้ Schema ช่วยในการจัดการฐานข้อมูลขนาดใหญ่
+แบ่งกลุ่ม object (tables, views, functions) ตาม โมดูล / แผนก / ฟังก์ชัน
+ลดความซับซ้อน ไม่ต้องใช้ database แยกหลายอัน
+เพิ่มความปลอดภัย = กำหนดสิทธิ์แยก schema ได้
+ช่วยหลีกเลี่ยงชื่อ table ซ้ำกัน
+
+4. ประโยชน์ของ Docker สำหรับ Database Development
+รัน PostgreSQL ได้ทันที โดยไม่ต้องติดตั้งบนเครื่อง
+กำหนดเวอร์ชันง่าย เช่น Postgres 14, 15, 16
+ใช้ volume เก็บข้อมูล = ข้อมูลไม่หายเมื่อ container ตาย
+ทำ environment ที่เหมือนกันได้ทุกเครื่อง (dev, test, prod)
+เปลี่ยน config หรือสร้างหลาย database environment ได้สะดวก
 
 ## สรุปและการประเมินผล
 
